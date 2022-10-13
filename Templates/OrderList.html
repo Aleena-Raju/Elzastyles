@@ -1,0 +1,103 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+
+
+<div class="table-responsive">
+    <table class="table table-hover" style="margin-left: 60px; margin-top: 90px;max-width: 90%;margin-right: 20px; background-color:#FBFCFC ">
+      <thead style="background-color:#252932 ;color:white";>
+        <tr>
+          <th scope="col">Products & Order Details</th>
+          <th scope="col">Date</th>
+          <th scope="col">Ship To</th>
+          <th scope="col">Mode Of Payment</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+{% for i  in OrderProductDetails %}
+
+        <tr class="btn-reveal-trigger">
+          <td class="py-2">
+            <a href="#">
+                <strong>{{i.product.product_name}}</strong><br></a>Bought by <strong>{{i.user.username}}
+                </strong><br><a href="#" class="text-primary"></a></td>
+                {% comment %} <td class="py-2">ID:{{i.order.order_id}}</td> {% endcomment %}
+
+        <td class="py-2">{{i.order.date}}</td>
+        <td class="py-2"><p>{{i.order.address.Buyername}}</p>
+            <p>{{i.order.address.Buyers_Address}}</p>
+            <p>{{i.order.address.city}},{{i.order.address.state}}</p>
+            <p class="mb-0 text-500 text-primary">+{{i.order.address.phone_number}}</p>
+        </td>
+        <td class="py-2  ">{{i.payment.payment_method}}</td>
+        
+        <td class="py-2 ">₹{{i.order.total}}
+        </td>
+        <td class="py-2 "><button class="btn-xxs btn-rounded btn-outline-dark">{{i.status}}</button>
+                  
+        </td>
+        <td class="py-2 text-end">
+          <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              change status
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <div class="py-2">
+                {% if i.status == 'Order Confirmed' %}
+                <a class="dropdown-item" href="{% url 'order_Shipped' i.id %}">Shipped</a>
+                <a class="dropdown-item" href="{% url 'order_Cancelled' i.id %}">Cancel</a>
+                {% elif i.status == 'Shipped' %}
+                <a class="dropdown-item" href="{% url 'order_Out_For_delivery' i.id %}">Out for delivery</a>
+                <a class="dropdown-item" href="{% url 'order_Cancelled' i.id %}">Cancel</a>
+                {% elif i.status == 'Out for delivery' %}
+                <a class="dropdown-item" href="{% url 'order_Delivered' i.id %}">Delivered</a>
+                {% elif i.status == 'Delivered' %}
+               {% endif %}
+            </div>
+          </div>
+        </td>
+    </tr>
+{% endfor %}
+      </tbody>
+    </table>
+
+      <div >
+      {% if OrderProductDetails.has_other_pages %}
+        <ul class="pagination">
+        {% if OrderProductDetails.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{OrderProductDetails.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+        {% endif %}
+    
+        {% for i in OrderProductDetails.paginator.page_range %}
+          {% if OrderProductDetails.number == i %}
+          <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+          {% endif %}  
+        {% endfor %}
+    
+        {% if OrderProductDetails.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{OrderProductDetails.next_page_number}}">Next</a></li>
+        {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        {% endif %}
+        </ul>
+      {% endif %}
+      </div>
+  </div>
+</div>
+
+
+
+
+  
+{% endblock %}
+
+
+

@@ -1,0 +1,103 @@
+{% extends 'userbase.html' %}
+		
+{% block content %}
+{% load static %}
+	
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center " style="background-image: url('images/bg-01.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Contact
+		</h2>
+	</section>	
+
+
+	<!-- ================================form creation===========================         -->
+
+	<!-- Content page -->
+    <section class="bg0 p-t-104 p-b-116">
+		<div class="container">
+			<div class="flex-w flex-tr">
+				<table class="table">
+					<thead>
+					  <tr>
+						<th>S no.</th>
+						<th scope="col">Product Image</th>
+						<th scope="col">Order Id</th>
+						<th scope="col">Products</th>
+						<th scope="col">Total Price</th>
+						<th scope="col">Quantity</th>
+						<th scope="col">Order Status</th>
+					  </tr>
+					</thead>
+					<tbody>
+						{% for i in order %}
+					  <tr>
+						<td>{{forloop.counter}}</td>
+						<td><img src= "{{i.product.image1.url}}" style="width: 70px;"></td>
+						<td>ID:{{i.order.order_id}}</td>
+						<td>{{i.product.product_name}}</td>
+						<td>₹{{i.order.total}}</td>
+						<td>{{i.quantity}}</td>
+						<td>{{i.status}}</td>
+						{% if i.status == 'Order Confirmed' %}
+						<td >
+							<a href="{% url 'Cancelorder' i.id %}" class="btn-danger btn ">Cancel</a>
+						</td>
+						<td >
+							<a href="{% url 'invoice' i.id %}" class="btn btn-primary">Invoice</a>
+						</td>
+						{% elif i.status == 'Delivered' %}
+						<td >
+							<a href="{% url 'returnorder' i.id %}" class="btn-danger btn ">Return</a>
+						</td>
+						{% endif %}
+					  </tr>
+					  {% endfor %}
+					
+					</tbody>
+				  </table>
+
+			</div>
+		</div>
+				</div>
+
+			
+	</section>
+	
+	
+	<nav aria-label="Page navigation example">
+		{% if order.has_other_pages %}
+		  <ul class="pagination justify-content-center">
+			{% if order.has_previous %}
+			<li class="page-item"><a class="page-link" href="?page={{order.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a></li>
+			{% else %}
+			<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+			{% endif %}
+	
+			{% for i in order.paginator.page_range %}
+			  {% if order.number == i %}
+				<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+			  {% else %}
+				<li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+			  {% endif %}  
+			{% endfor %}
+	
+			{% if order.has_next %}
+			  <li class="page-item"><a class="page-link" href="?page={{order.next_page_number}}">Next</a></li>
+			{% else %}
+			  <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+			{% endif %}
+		  </ul>
+		{% endif %}
+	  </div>
+	  
+	  </nav>
+	
+	<!-- Map -->
+	<!-- <div class="map">
+		<div class="size-303" id="google_map" data-map-x="40.691446" data-map-y="-73.886787" data-pin="images/icons/pin.png" data-scrollwhell="0" data-draggable="1" data-zoom="11"></div>
+	</div>
+-->
+
+{% endblock %}

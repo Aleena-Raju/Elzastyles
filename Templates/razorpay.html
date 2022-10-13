@@ -1,0 +1,94 @@
+{% extends 'userbase.html' %}
+		
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+
+    .razorpay-payment-button{
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .razorpay-payment-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .razorpay-payment-button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .razorpay-payment-button span {
+    padding-right: 25px;
+  }
+  
+  .razorpay-payment-button span:after {
+    opacity: 1;
+    right: 0;
+  }
+  </style>
+</head>
+<body>
+  <div class="row justify-content-center mt-5">
+    <div class="col-4">
+      <!-- Set up a container element for the button -->
+      <div>
+        <form
+          class="text-center border border-light p-5"
+          action="success"
+          method="POST"
+        >
+          {% csrf_token %}
+  
+    
+  
+          <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_YvJpGLS6WYeGXf"
+            data-amount="50000"
+            data-currency="INR"
+            data-order_id="{{payment.id}}"
+            data-buttontext="Pay with Razorpay"
+            data-name="Professional Cipher"
+            data-description="Django and Data Science"
+            data-image="https://example.com/your_logo.jpg"
+            data-prefill.name="Aleena"
+            data-prefill.email="aleena@gmail.com"
+            data-theme.color="#F37254"
+          ></script>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+{% endblock %}
+
+

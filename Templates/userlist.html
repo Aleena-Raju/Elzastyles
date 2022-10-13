@@ -1,0 +1,61 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-hover" style="margin-left: 82px;margin-top: 142px;max-width: 90%; background-color:#b1cdcd">
+      <thead style="background-color:#252932; color:white;">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone Number</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for x in theuser %}
+      {% if x.is_superuser %}
+      {% else %}
+        <tr>
+          <th scope="row"> {{x.id}}</th>
+          <td>{{x.first_name}}</td>
+          <td>{{x.last_name}}</td>
+          <td>{{x.username}}</td>
+          <td>{{x.email}}</td>
+          <td>{{x.phone_number}}</td>
+          {% if x.is_active %}
+
+          <td><a href="blockuser/{{x.id}}" class="btn btn-secondary btn-lg active " onclick="return confirm('Are you sure to Block')"role="button" aria-pressed="true">BlockUser</a></td>
+        {% else %}
+          <td><a href="blockuser/{{x.id}}" class="btn btn-secondary btn-lg active" onclick="return confirm('Are you sure to Unblock')"role="button" aria-pressed="true">UnblockUser</a></td>
+        {% endif %}
+    </tr>
+    {% endif %}
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+{% endblock %}

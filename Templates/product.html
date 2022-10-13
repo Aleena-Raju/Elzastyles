@@ -1,0 +1,76 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+<div class="content-header sty-one">
+<h1 class="text-black">Products</h1>
+<ol class="breadcrumb">
+    <li><a href="adminhome">Home</a></li>
+    <li class="sub-bread"><i class="fa fa-angle-right"></i>Forms</li>
+    <li><i class="fa fa-angle-right"></i>New Product</li>
+</ol>
+</div>
+<td><a href="{% url 'addproduct'%}"><button type="submit" class="btn btn-warning">Add Product</button></a></td>
+
+<div class="table-responsive">
+    <table class="table table-hover" style="margin-left:50px; margin-top:62px;max-width:87%;background-color:#D3D3D3">
+    <thead style="background-color:#252932;color:white;">
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Category</th>
+        <th scope="col">Image1</th>
+        <th></th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for x in theproduct %}
+        <tr>
+        <th scope="row"> {{x.id}}</th>
+        <td>{{x.product_name}}</td>
+        <td>{{x.description}}</td>
+        <td>{{x.price}}</td>
+        <td>{{x.stock}}</td>
+        <td>{{x.category}}</td>
+
+        <td><img src="{{ x.image1.url }}" alt="" class="img-fluid img-thumbnail" style="width:140px; height:160px"></td>
+        <td><a href="editproduct/{{ x.id }}"><button type="submit" class="btn btn-warning">Edit</button></a></td>
+        <td><a href="delete/{{ x.id }}"><button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')" >Delete</button></a></td>
+        
+        </tr>
+        {% endfor %}
+
+    </tbody>
+    </table>
+    <div >
+      {% if theproduct.has_other_pages %}
+        <ul class="pagination">
+        {% if theproduct.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{theproduct.previous_page_number}}" tabindex="-1" aria-disabled="true">Previous</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a></li>
+        {% endif %}
+    
+        {% for i in theproduct.paginator.page_range %}
+          {% if theproduct.number == i %}
+          <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+          {% endif %}  
+        {% endfor %}
+    
+        {% if theproduct.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{theproduct.next_page_number}}">Next</a></li>
+        {% else %}
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        {% endif %}
+        </ul>
+      {% endif %}
+      </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <div class="content-header sty-one">
+      <h1 class="text-black"></h1>
+      <ol class="breadcrumb">
+        <li><a href="adminhome">Home</a></li>
+        <li class="sub-bread"><i class="fa fa-angle-right"></i> Forms</li>
+        <li><i class="fa fa-angle-right"></i>New Product</li>
+      </ol>
+    </div>
+    
+    <!-- Main content -->
+    <div class="content">
+      <div  class="d-flex justify-content-center" >
+        <div class="col-lg-6">
+          <div class="card card-outline ">
+            <div class="card-header bg-blue">
+              <h5 class="text-white m-b-0">Add here</h5>
+            </div>
+            {% if messages %}
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-2"></div>
+					<div class="col-6">
+						
+						{% for message in messages %}
+						{% if message.tags == 'error' %}
+						<div class="alert alert-danger ">{{message}}</div>
+						{% else%}
+						<div class="alert alert-{{message.tags}}">{{message}}</div>
+						{% endif %}
+						{% endfor %}
+						
+					</div>
+				</div>
+			</div> 
+			{% endif %}
+            <div class="card-body">
+              <form action="" method="POST">
+                {% csrf_token %}
+              <div class="form-group">
+                <label for="">Name</label>
+                <input type="text" class="form-control" id="" placeholder="Name" name="name" >
+              </div>
+              <div class="form-group">
+                <label for="">Description</label>
+                <input type="text" class="form-control" id="" placeholder="Description" name="description" >
+              </div>
+                    <!-- {% for category in values %}
+                    <option value="{{category.id}}" >{{category.category_name}}</option>
+                    <ul>
+                      {% for subcategory in category.skill_subcategories.all %}
+                          <li>{{ subcategory.category }}</li>
+                      {% endfor %}
+                  </ul>
+                    {% endfor %} -->
+                    <ul>
+                      {% for category in values %}
+                      <li>{{ category.category }}</li>
+                      <!-- <ul>
+                          {% for subcategory in category.skill_subcategories.all %}
+                              <li>{{ subcategory.category }}</li>
+                          {% endfor %}
+                      </ul> -->
+                      {% endfor %}
+                  </ul>
+                  </select>
+                </div>
+              <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+            </div>
+          </div>
+        </div>
+       </div>
+      </div>
+      
+    <!-- /.content --> 
+  </div>
+  <script>
+
+    window.setTimeout(function() {
+      $(".alert").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove(); 
+      });
+  }, 1500);
+  </script>
+  <!-- /.content-wrapper -->
+  
+  {% endblock %}

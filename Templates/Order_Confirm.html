@@ -1,0 +1,32 @@
+{% extends 'userbase.html' %}
+		
+{% block content %}
+{% load static %}
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center " style="background-image: url('images/bg-01.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Contact
+		</h2>
+	</section>	
+
+
+	<!-- ================================form creation===========================         -->
+	
+	<!-- Content page -->
+	<section class="bg0 p-t-104 p-b-116">
+		<div class="text-center">
+		<h1 class="text-center">Your order is confirmed!!</h1>
+		<a href="{% url 'ViewOrderDetails' %}"><button class="bg-primary">View order Details</button></a>
+	</div>
+	</section>	
+	
+	
+	<!-- Map -->
+	{% comment %} <div class="map">
+		<div class="size-303" id="google_map" data-map-x="40.691446" data-map-y="-73.886787" data-pin="images/icons/pin.png" data-scrollwhell="0" data-draggable="1" data-zoom="11"></div>
+	</div>
+{% endcomment %}
+
+
+{% endblock %}

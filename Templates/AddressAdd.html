@@ -1,0 +1,127 @@
+{% extends 'userbase.html' %}
+		
+{% block content %}
+{% load static %}
+	
+
+	<!-- Title page -->
+	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Contact
+		</h2>
+	</section>	
+
+
+	<!-- ================================form creation===========================         -->
+
+	<!-- Content page -->
+	<section class="bg0 p-t-104 p-b-116">
+		<div class="container">
+			<div class="flex-w flex-tr">
+				<div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+					<form method="POST">
+						{% csrf_token %}
+						<h4 class="mtext-105 cl2 txt-center p-b-30">
+							Add Address
+						</h4>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="Buyername" placeholder="Name">
+					    </div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="Buyers_Address" placeholder="Delivery Address">
+					    </div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="city" placeholder="Town / City">
+					    </div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="pincode" placeholder="pincode">
+					    </div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="state" placeholder="State">
+					    </div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="phone_number" placeholder="phone">
+					    </div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="email" placeholder="Email Address">
+					    </div>
+
+						<div class="bor8 m-b-20 how-pos4-parent">
+							<input class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" type="text" name="country" placeholder="Country">
+					    </div>
+
+						<input type="Submit" value="Save Address" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+							
+						
+					</form>
+				</div>
+				<div class="size-210 bor10 flex-w  w-full-md" style="padding:63px ;">
+					<div class="flex-w w-full">
+						<span class="fs-18 cl5 txt-center size-211">
+							<span class="lnr lnr-map-marker"></span>
+						</span>
+
+						<div class="size-212">
+							<span class="mtext-110 cl2">
+								Address
+							</span>
+
+		            <form action="{% url 'PlaceOrder' %}" method="post">
+								{% csrf_token %}
+								{% for i in AddressDetails %}
+
+
+							<p class="stext-115 cl6 size-213 p-t-18">
+								{{i.Buyername}} <br>{{i.Buyers_Address}},{{i.city}}-{{i.pincode}} <br> {{i.state}},{{i.country}}
+								
+							</p>
+							<input type="radio" name="addressUsed" value="{{i.id}}">
+							<label for="custadd{{forloop.counter}}">Address:{{forloop.counter}}</label>
+							<hr>
+							{% endfor %}
+				
+						</div>
+						<div class="size-50" style="margin-top: 192px;margin-left: 59px;">
+							<span class="mtext-110 cl2 text center">
+								<b>Mode  of Payment</b>
+							</span><br>
+							<br>
+							<span class="mtext-110 cl2">
+								<input type="radio" value="RazorPay" name="payment-method"required
+								checked>
+							    <label class="payment-label" for="RazorPay">RazorPay
+								</label>	
+							</span>
+							<span class="mtext-110 cl2">
+								<input type="radio" value="PayPal" name="payment-method" required
+																checked>
+															<label class="payment-label" for="PayPal">PayPal
+																</label>
+							</span>
+							<span class="mtext-110 cl2">
+								<input type="radio" value="cash" name="payment-method"
+															required >
+															<label class="payment-label" for="cash">
+																Cash on delivery
+															</label>
+							</span>
+							<button type="submit" class="btn-primary btn btn-size-md btn-fullwidth">Proceed to checkout</button>
+					</div>
+			</div>
+		</div>
+			</form>
+			</div>
+		</div>				
+    </div>
+</div>
+                     </div>
+	</section>
+
+{% endblock %}

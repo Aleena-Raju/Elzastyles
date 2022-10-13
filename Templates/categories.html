@@ -1,0 +1,56 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+<!-- Content Header (Page header) -->
+<div class="content-header sty-one">
+  <h1 class="text-black">Category</h1>
+  <ol class="breadcrumb">
+    <li><a href="adminhome">Home</a></li>
+    <li class="sub-bread"><i class="fa fa-angle-right"></i> Category</li>
+    <li><i class="fa fa-angle-right"></i>Category</li>
+
+
+  </ol>
+</div>
+<td><a href="addcategory"><button type="submit" class="btn btn-warning"> Add Category</button></a></td>
+
+<div class="container">
+<div class="table-responsive">
+  <table class="table table-hover"  style="
+  margin-left:78px;margin-top: 17px;max-width:87%;background:#D3D3D3;">
+    <thead class="thead-dark" style="background-color: #252932;">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Category name</th>
+        <th scope="col">Description</th>
+        <th></th>
+        {% comment %} <th>Status</th> {% endcomment %}
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in values %}
+      <tr>
+        <th scope="row">{{x.id}}</th>
+        <td>{{x.category_name}}</td>
+        <td>{{x.description}}</td>
+        <td>{{x.image}}</td>
+{% comment %} 
+        <td><a href="deletecategory/{{ x.id }}"><button type="submit" class="btn btn-danger"
+              onclick="return confirm('Are you sure to delete?')">delete</button></a></td> {% endcomment %}
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /.content -->
+
+{% endblock %}

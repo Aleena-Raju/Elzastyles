@@ -1,0 +1,73 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+<div class="content-header sty-one">
+    <h1 class="text-whilte">Edit product</h1>
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li class="sub-bread"><i class="fa fa-angle-right"></i> Forms</li>
+      <li><i class="fa fa-angle-right"></i> Form Layouts</li>
+    </ol>
+  </div>
+  
+  <!-- Main content -->
+  <div class="content">
+    <div class="d-flex justify-content-center">
+      <div class="col-lg-6">
+        <div class="card card-outline">
+          <div class="card-header bg-blue">
+            <h5 class="text-white m-b-0">Basic Example</h5>
+          </div>
+          <div class="card-body">
+            <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+            <div class="form-group">
+              <label for="">Name</label>
+              <input type="text" class="form-control" id="" placeholder="Name" name="name" value="{{this_product.name}}">
+            </div>
+            <div class="form-group">
+              <label for="">Description</label>
+              <input type="text" class="form-control" id="" placeholder="Description" name="description" value="{{this_product.description}}">
+            </div>
+            <div class="form-group">
+              <label for="">Price</label>
+              <input type="number" class="form-control" id="" placeholder="Price" name="price" value="{{this_product.price}}">
+            </div>
+            <div class="form-group">
+              <label for="">Stock</label>
+              <input type="number" class="form-control" id="" placeholder="Stock" name="stock" value="{{this_product.stock}}">
+            </div>
+            <!-- <div class="form-group">
+              <label for="">Category</label> -->
+              <!-- <input type="text" class="form-control" id="" placeholder="Category" name="category" value="{{this_product.category}}"> -->
+              <!-- <div class="col-lg-6">
+                <select class="form-control" name="category">
+                  {% for category in values %}
+                  <option >{{category.category_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label for="">Image</label>
+              <input type="file" class="form-control" id="" placeholder="Image" name="image1" value="{{this_product.image1}}">
+            </div>
+            <div class="form-group">
+              <label for="">Image</label>
+              <input type="file" class="form-control" id="" placeholder="Image" name="image2" value="{{this_product.image2}}">
+            </div>
+            <div class="form-group">
+              <label for="">Image</label>
+              <input type="file" class="form-control" id="" placeholder="Image" name="image3" value="{{this_product.image3}}">
+            </div>
+            
+            
+            
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}

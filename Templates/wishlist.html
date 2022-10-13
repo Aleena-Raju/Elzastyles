@@ -1,0 +1,84 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block content %}``
+<div class="col-lg-12 col-xl-10 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl" style="margin-top: 100px;">
+						<div class="wrap-table-shopping-cart">
+                            {% if Wishlist_list %}
+                            {% for i in Wishlist_list %}
+                                        
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1"></th>
+									<th class="column-2">Product</th>
+									<th class="column-3">Price</th>
+									<th class="column-4">Remove</th>
+									<th class="column-5"></th>
+									<th class="column-6"></th>
+									<th class="column-7">Cart</th>
+								</tr>
+                                <tr class="table_row">
+                                    
+									<td class="column-1">
+                                        
+										<input type="hidden" value="{{cart_item.id}}" class="prod_id">
+										<div class="how-itemcart1">
+											<img src="{{ i.wished_product.image1.url }}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2">{{ i.wished_product.product_name }}</td>
+									<td class="column-3">₹ {{ i.wished_product.price }}</td>
+									<td class="column-4"></td>
+									{% comment %} <td class="column-6"><i class="zmdi zmdi-favorite"></i></td> {% endcomment %}
+                                <td class="text-start">
+                                        <form method="POST" action="">
+                                            {% csrf_token %}
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <div style="margin-right:20px" onclick="addcart('{{i.id}}')">
+										
+                                                <a  class="btn btn-danger text-white"> Remove </a> 
+                                              </div>
+                                        </form>
+                                    </td>
+                                    <td class="column-5"></td>
+                                    <td class="product-action-btn">
+                                        <a href="{% url 'AddToCart' i.wished_product.id %}" class="zmdi zmdi-shopping-cart-plus"></a>
+                                    </td>
+								</tr>
+								
+                                
+							</table>
+                            {% endfor %}
+                            {% else %}
+                                <div class="text-center m-4">
+                                    <h1>Your WishList is Empty</h1>
+                                    <a href="{% url 'home' %}"><button class="btn btn-size-md mt-2">Back to
+                                            Home</button></a>                       
+                                {% endif %}
+                                </div>
+                                
+						</div>
+					</div>
+</div>
+                <script>
+                    function addcart(id){
+                        swal({
+                            title: "Are you sure?",
+                            text: "Once deleted, you will not be able to recover this item!",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                          })
+                          .then((willDelete) => {
+                            if (willDelete) {
+                                window.location.href = "../remove_from_wishlist/"+id
+                              swal("Done! Your item has been deleted!", {
+                                icon: "success",
+                              });
+                            } else {
+                              swal("Your item is safe!");
+                            }
+                          });
+                    }
+                </script>
+{% endblock %}
