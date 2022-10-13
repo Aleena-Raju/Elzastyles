@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'nastylesstore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'elzakutty',
         'USER':'postgres_ad',
         'PASSWORD':'allu1997',
-        'HOST':'elzakutty.cnnbrv8kneyq.us-east-1.rds.amazonaws.com',
+        'HOST':'database.cnnbrv8kneyq.us-east-1.rds.amazonaws.com',
         'PORT':'5432'
     }
 }
