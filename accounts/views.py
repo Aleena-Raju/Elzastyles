@@ -24,34 +24,37 @@ def signin(request):
     #     return redirect()
 
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']  
-        usserblockstaus=Account.objects.get(email=request.POST.get('email'))  
-        if usserblockstaus.is_active==True:
+            email = request.POST['email']
+            password = request.POST['password']  
+        # usserblockstaus=Account.objects.get(email=request.POST.get('email'))  
+        # if usserblockstaus.is_active==True:
             user = authenticate(email=email, password=password)
         
             # print(email)
             # print(password)
         
             if user is not None:
-                phone=Account.objects.get(email=request.POST.get('email'))  
-                phone_number=phone.phone_number
-                account_sid     = settings.ACCOUNT_SID
-                auth_token      = settings.AUTH_TOKEN
-                client = Client(account_sid, auth_token)
-                verification = client.verify \
-                                        .v2 \
-                                        .services(settings.SERVICE_ID) \
-                                        .verifications \
-                                        .create(to=f'{settings.COUNTRY_CODE}{phone_number}', channel='sms')
-                print(verification.status)
-                messages.success(request, 'Otp sent Succesfully to your Registered Mobile number' )
-                return redirect(f'loginotp/{phone.id}/')
+                login(request,user)
+                request.session['username'] = user.username
+                return redirect(home)
+                # phone=Account.objects.get(email=request.POST.get('email'))  
+                # phone_number=phone.phone_number
+                # account_sid     = settings.ACCOUNT_SID
+                # auth_token      = settings.AUTH_TOKEN
+                # client = Client(account_sid, auth_token)
+                # verification = client.verify \
+                #                         .v2 \
+                #                         .services(settings.SERVICE_ID) \
+                #                         .verifications \
+                #                         .create(to=f'{settings.COUNTRY_CODE}{phone_number}', channel='sms')
+                # print(verification.status)
+                # messages.success(request, 'Otp sent Succesfully to your Registered Mobile number' )
+                # return redirect(f'loginotp/{phone.id}/')
             else:
                 messages.error(request, "Invalid Credentials")
                 print('NOT ABLE TO SIGNIN')
-        else:
-            messages.error(request,'You are blocked!!')        
+        # else:
+        #     messages.error(request,'You are blocked!!')        
     return render(request,'signin.html')
             
 
