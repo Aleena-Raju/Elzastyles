@@ -21,7 +21,7 @@ class Cart_Products(models.Model):
     is_active       = models.BooleanField(default=True)
 
 
-    def __str__(self):
+    def __unicode__(self):
         return self.product.product_name
 
     def sub_total(self):
