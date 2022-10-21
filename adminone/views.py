@@ -407,6 +407,7 @@ def view_couponuseduser(request):
     return render(request, "view_couponuseduser.html",{"coupon_useduser:coupon_useduser"})
 
 # --------------------------- addcoupon-------------------------- #
+# addcoupons
 
 def add_coupon(request):
     if request.method == "POST":
