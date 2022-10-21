@@ -310,16 +310,13 @@ def salesreport(request):
     if request.method  == 'POST':
         search = request.POST["salesreport_search"]
         salesreports = Order.objects.filter(order_id__contains = search)
-        salesreports_count = salesreports.count()
         context = {
             'salesreport':salesreports,
-            'salesreports_count' : salesreports_count,
         }
         return render (request,"salesreport.html",context)
 
     context = {
             'salesreport':salesreport,
-            'salesreports_count' : salesreports_count,
         }
     return render (request,"salesreport.html",context)
 
@@ -338,10 +335,8 @@ def date_range(request):
             todt = [int(x) for x in tod]
 
             salesreport = Order.objects.filter(date__gte = datetime.date(fm[0],fm[1],fm[2]),date__lte=datetime.date(todt[0],todt[1],todt[2]) )
-            salesreports_count = salesreport.count()
             context = {
                 'salesreport':salesreport,
-                'salesreports_count' : salesreports_count,
             }
 
             return render(request,'salesreport.html',context)
@@ -350,7 +345,6 @@ def date_range(request):
             salesreport = Order.objects.all()
             context = {
                 'salesreport': salesreport ,
-                'salesreports_count' : salesreports_count,
                 
 
             
@@ -369,11 +363,9 @@ def monthly_report(request,date):
     todt = [2022,frmdate,30]
 
     salesreport = Order.objects.filter(date__gte = datetime.date(fm[0],fm[1],fm[2]),date__lte=datetime.date(todt[0],todt[1],todt[2])).order_by("-id")
-    salesreports_count = salesreport.count()
     if len(salesreport)>0:
         context = {
             'salesreport':salesreport,
-            'salesreports_count' : salesreports_count,
         }
         return render(request,'salesreport.html',context)
 
@@ -389,11 +381,9 @@ def yearly_report(request,date):
     todt = [frmdate,12,31]
 
     salesreport = Order.objects.filter(date__gte = datetime.date(fm[0],fm[1],fm[2]),date__lte=datetime.date(todt[0],todt[1],todt[2])).order_by("-id")
-    salesreports_count = salesreport.count()
     if len(salesreport)>0:
         context = {
             'salesreport':salesreport,
-            'salesreports_count' : salesreports_count,
         }
         return render(request,'salesreport.html',context)
 

@@ -235,7 +235,7 @@ def razorPayPayment(request):
             payment = client.order.create({'amount': amount, 'currency': 'INR', 'payment_capture': '1'})
             print(payment)
             return render(request,'razorpay.html',{'payment': payment}) 
-    return render(request,'razorpay.html') 
+        return render(request,'razorpay.html') 
 
     # def razorPayPayment(request):
     
